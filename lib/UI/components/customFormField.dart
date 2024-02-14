@@ -20,34 +20,29 @@ class customFormField extends StatelessWidget{
       );
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: Offset(0, 3), // changes the position of the shadow
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: TextFormField(
+            controller: controller,
+            validator: validator,
+            obscureText: secureText,
+            keyboardType:keyboardType ,
+            decoration: InputDecoration(
+              hintText: hintText ,
+                hintStyle:TextStyle(color: Colors.white) ,
+              prefixIcon: prefixIcon,
+                prefixIconColor: Colors.white,
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide.none),
+              fillColor: Colors.black12,
+              filled: true
             ),
-          ],
-        ),
-        child: TextFormField(
-          controller: controller,
-          validator: validator,
-          obscureText: secureText,
-          keyboardType:keyboardType ,
-          decoration: InputDecoration(
-            labelText: hintText,
-            prefixIcon: prefixIcon,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide.none),
-            fillColor: Colors.white,
-            filled: true
-          ),
 
+          ),
         ),
-      ),
+      ],
     );
   }
 

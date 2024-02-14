@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:smart_home1/UI/Home/homeScreen.dart';
 import 'package:smart_home1/UI/login/loginScreen.dart';
 import 'package:smart_home1/UI/register/registerScreen.dart';
 
+//final GetIt getIt = GetIt.instance;
+/*void setupLocator() {
+  GetIt.I.registerLazySingleton(() => LoginViewModel());
+  // Register other services and view models here
+}*/
+
 void main() {
+  //setupLocator();
   runApp(const MyApp());
 }
 
@@ -18,11 +26,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           iconTheme: IconThemeData(color: Colors.white),
-          color: Colors.blue,
           titleTextStyle: TextStyle(color: Colors.white,fontSize: 20)
         ),
+        primaryColor: Color(0xFFC48657),
 
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFC48657),
+            onPrimary: Colors.white,
+            onSecondary: Colors.black
+        ),
         useMaterial3: true,
       ),
       routes: {
@@ -30,7 +41,7 @@ class MyApp extends StatelessWidget {
         registerScreen.routeName:(_)=>registerScreen(),
         loginScreen.routeName:(_)=>loginScreen(),
       },
-      initialRoute: registerScreen.routeName,
+      initialRoute: homeScreen.routeName,
     );
   }
 }

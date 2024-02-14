@@ -1,107 +1,139 @@
+
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_home1/UI/Home/homeScreen.dart';
 import 'package:smart_home1/UI/components/customFormField.dart';
+import 'package:smart_home1/UI/register/registerScreen.dart';
+import 'package:http/http.dart'as http;
 
+import '../../api/ApiManager.dart';
 import '../../validation/validationUtilts.dart';
-
 class loginScreen extends StatelessWidget{
   static const routeName='login';
-  TextEditingController fullName=TextEditingController();
-  TextEditingController userName=TextEditingController();
-  TextEditingController email=TextEditingController();
-  TextEditingController password=TextEditingController();
-  TextEditingController passwordConfirmation=TextEditingController();
+  TextEditingController email=TextEditingController(text: 'shrouka.mohamed@gmail.com');
+  TextEditingController password=TextEditingController(text: '123123');
   final GlobalKey<FormState> FormKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        image: DecorationImage(image: AssetImage('assets/images/background.jpg',),
-        fit: BoxFit.fill)
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Container(
+    return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      body: Center(
+        child: Container(
           padding: EdgeInsets.all(12),
           child: Form(
             key:FormKey , //to access the component
-            child: Column(
-              crossAxisAlignment:CrossAxisAlignment.stretch ,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Login',
-                  style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),
-                ),
-                customFormField(
-                  prefixIcon: Icon(Icons.email),
-                    hintText: 'Email',
-                    keyboardType: TextInputType.emailAddress,
-                  validator: (text){
-                    if (text==null || text.trim().isEmpty){
-                      return 'please enter email';
-
-                    }
-                    else if(!isvalidEmail(text)){
-                      return 'email bad format';
-                    }
-                    return null;
-                  },
-                  controller: email,
-                ),
-                customFormField(
-                  prefixIcon: Icon(Icons.key),
-                    hintText: 'Password',
-                    keyboardType: TextInputType.text,
-                    secureText: true,
-                  validator: (text){
-                    if (text==null || text.trim().isEmpty){
-                      return 'please enter password';
-                    }
-                    else if(text.length<6){
-                      return 'password should at least 6 chars';
-                    }
-                    return null;
-                  },
-                  controller: password,
-                ),
-                SizedBox(height: 24,),
-                ElevatedButton(
-                  onPressed: (){
-                    Login();
-                  },
-                  child: Text('LOGIN',
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment:CrossAxisAlignment.stretch ,
+                children: [
+                  Image.asset('assets/images/Smart-home-logo.png',
+                    width: 100,
+                    height: 100,
+                    color: Colors.white,
+                  ),
+                  SizedBox(height: 20,),
+                  Text('Smart Home',
+                    textAlign:  TextAlign.center,
                     style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold
-                    ),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    color: Colors.white,
                   ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
-                        Colors.cyan
-                    ),
                   ),
+                  SizedBox(height: 10,),
+                  customFormField(
+                    prefixIcon: Icon(Icons.email),
+                      hintText: 'ex@gmail.com',
+                      keyboardType: TextInputType.emailAddress,
+                    validator: (text){
+                      if (text==null || text.trim().isEmpty){
+                        return 'please enter email';
 
-                )
-              ],
+                      }
+                      else if(!isvalidEmail(text)){
+                        return 'email bad format';
+                      }
+                      return null;
+                    },
+                    controller: email,
+                  ),
+                  customFormField(
+                    prefixIcon: Icon(Icons.key),
+                      hintText: '********',
+                      keyboardType: TextInputType.text,
+                      secureText: true,
+                    validator: (text){
+                      if (text==null || text.trim().isEmpty){
+                        return 'please enter password';
+                      }
+                      else if(text.length<6){
+                        return 'password should at least 6 chars';
+                      }
+                      return null;
+                    },
+                    controller: password,
+                  ),
+                  SizedBox(height: 24,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: (){
+                          Navigator.pushNamed(context, registerScreen.routeName);
+
+                        },
+                        child: Text("you don’t have Account?Register",style: TextStyle(
+                            color: Colors.white,
+                          fontSize: 15
+                        ),),
+                      ),
+                      ElevatedButton(
+                        onPressed: (){
+                          Login(context);
+                        },
+                        child: Text('Log In',
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                              Color(0xFF7D7D7E),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-
-
       ),
+
+
     );
   }
-
-  void Login() {
-    //if form is valid or not
-    if(FormKey.currentState?.validate() == false){
+  Future<void> Login(BuildContext context) async {
+    if (FormKey.currentState?.validate() == false) {
       return;
-
     }
 
+    try {
+      final token = await APIManager.login(email.text, password.text);
+      if (token != null) {
+        Navigator.pushNamed(context, homeScreen.routeName);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Invalid credentials')));
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
   }
 
-}
+  }

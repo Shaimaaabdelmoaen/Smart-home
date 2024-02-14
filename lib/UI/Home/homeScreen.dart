@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../components/homeContainers.dart';
 import 'drawer/homeDrawer.dart';
 
 class homeScreen extends StatelessWidget{
@@ -10,6 +11,7 @@ class homeScreen extends StatelessWidget{
     return Scaffold(
       drawer:homeDrawer(),
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
         elevation: 0,
 
         title: Text('Home Assistant'),
@@ -46,7 +48,23 @@ class homeScreen extends StatelessWidget{
               icon: Icon(Icons.more_vert)
           )
         ],
-      )
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              homeContainers(height: 550,name: 'Home Plan',),
+              SizedBox(height: 20,),
+              homeContainers(height: 450,name: 'Lights'),
+              SizedBox(height: 20,),
+              homeContainers(height: 300,name: 'Temperature'),
+              SizedBox(height: 20,),
+              homeContainers(height: 250,name: 'Security')
+            ],
+          ),
+        ),
+      ),
     );
   }
 
