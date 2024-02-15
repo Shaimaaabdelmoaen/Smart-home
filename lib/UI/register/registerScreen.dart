@@ -28,7 +28,7 @@ class registerScreen extends StatelessWidget {
           .primaryColor,
       body: Center(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 40, horizontal: 15),
+          margin: EdgeInsets.only(top:85,right: 15,left: 15),
           child: Form(
             key: formKey,
             child: SingleChildScrollView(
@@ -36,12 +36,10 @@ class registerScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Image.asset(
-                    'assets/images/Smart-home-logo.png',
+                    'assets/images/undraw_hire_re_gn5j.png',
                     width: 100,
                     height: 100,
-                    color: Colors.white,
                   ),
-                  SizedBox(height: 20),
                   Text(
                     'Sign Up',
                     style:
@@ -153,6 +151,15 @@ class registerScreen extends StatelessWidget {
                         ),
                       ),
                     ],
+                  ),
+                  SizedBox(height: 10,),
+                  Container(
+                    alignment:  Alignment.bottomRight,
+                    child: Image.asset(
+                      'assets/images/undraw_join_re_w1lh.png',
+                      width: 80,
+                      height: 80,
+                    ),
                   ),
                 ],
               ),

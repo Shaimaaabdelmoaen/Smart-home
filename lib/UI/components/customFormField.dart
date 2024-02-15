@@ -35,8 +35,11 @@ class customFormField extends StatelessWidget{
                 hintStyle:TextStyle(color: Colors.white) ,
               prefixIcon: prefixIcon,
                 prefixIconColor: Colors.white,
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide.none),
-              fillColor: Colors.black12,
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50),
+                  borderSide: BorderSide(color: Colors.white)),
+
+              fillColor: Colors.white12,
               filled: true
             ),
 

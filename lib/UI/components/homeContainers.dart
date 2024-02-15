@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 class homeContainers extends StatelessWidget{
   double? height;
   String? name;
-  homeContainers({required this.height,required this.name});
+  IconData? icon;
+  final Widget? child;
+  homeContainers({required this.height,required this.name,this.child,this.icon});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,15 +32,27 @@ class homeContainers extends StatelessWidget{
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(name!,style: TextStyle(
-                color: Colors.black54,
-              fontSize: 20
-            ),),
-            Divider(color: Colors.black38,height: Checkbox.width,)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  name!,
+                  style: const TextStyle(
+                    color: Colors.black54,
+                    fontSize: 20,
+                  ),
+                ),
+                Icon(icon,color: Theme.of(context).primaryColor,size: 30,),
+              ],
+            ),
+            Divider(color: Colors.black38,height: Checkbox.width,),
+            if (child != null) ...[
+              const SizedBox(height: 10),
+              child!,
+            ],
           ],
         ),
       ),
     );
   }
-
 }

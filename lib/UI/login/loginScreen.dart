@@ -29,13 +29,12 @@ class loginScreen extends StatelessWidget{
               child: Column(
                 crossAxisAlignment:CrossAxisAlignment.stretch ,
                 children: [
-                  Image.asset('assets/images/Smart-home-logo.png',
-                    width: 100,
-                    height: 100,
-                    color: Colors.white,
+                  Image.asset('assets/images/undraw_mobile_encryption_re_yw3.png',
+                    width: 150,
+                    height: 150,
                   ),
                   SizedBox(height: 20,),
-                  Text('Smart Home',
+                  Text('SMART HOME',
                     textAlign:  TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -85,7 +84,7 @@ class loginScreen extends StatelessWidget{
                           Navigator.pushNamed(context, registerScreen.routeName);
 
                         },
-                        child: Text("you don’t have Account?Register",style: TextStyle(
+                        child: Text("you don’t have Account? Register",style: TextStyle(
                             color: Colors.white,
                           fontSize: 15
                         ),),
