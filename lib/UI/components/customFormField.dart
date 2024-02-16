@@ -26,6 +26,7 @@ class customFormField extends StatelessWidget{
         Padding(
           padding: const EdgeInsets.only(bottom: 12),
           child: TextFormField(
+            style: TextStyle(color: Colors.white),
             controller: controller,
             validator: validator,
             obscureText: secureText,

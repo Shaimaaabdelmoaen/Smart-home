@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class LightSwitches extends StatefulWidget {
   final String nameSwitch;
-  //final  bool isSwitched=false;
+
   const LightSwitches({Key? key, required this.nameSwitch}) : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class _LightSwitchesState extends State<LightSwitches> {
         width: double.infinity,
         height:50,
         decoration: BoxDecoration(
-          color: Colors.white54,
+          color: Colors.white60,
           borderRadius: BorderRadius.circular(50),
           boxShadow: [
             BoxShadow(

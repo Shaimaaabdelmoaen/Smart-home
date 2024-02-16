@@ -18,9 +18,6 @@ class _homeScreenState extends State<homeScreen> {
     return Scaffold(
       drawer:homeDrawer(),
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        elevation: 0,
-
         title: Text('Home Assistant'),
         actions: [
           IconButton(
@@ -64,6 +61,10 @@ class _homeScreenState extends State<homeScreen> {
               homeContainers(
                 height: 550,
                 name: 'Home Plan',
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: Image.asset('assets/images/home_plan.png',),
+                ),
               ),
               SizedBox(height: 20,),
               homeContainers(

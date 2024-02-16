@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_home1/UI/Home/drawer/log%20out/logOut.dart';
+import 'package:smart_home1/UI/Home/drawer/settings/settingsTap.dart';
 import 'package:smart_home1/UI/components/drawerRow.dart';
 
 class homeDrawer extends StatelessWidget{
@@ -29,8 +31,8 @@ class homeDrawer extends StatelessWidget{
               flex: 9,
               child: Column(
                 children: [
-                  drawerRow(drawericons: Icons.settings,drawerIconsText: 'Settings'),
-                  drawerRow(drawericons: Icons.logout_outlined,drawerIconsText: 'Log Out',),
+                  drawerRow(drawericons: Icons.settings,drawerIconsText: 'Settings',name: settingsTap.routeName,),
+                  drawerRow(drawericons: Icons.logout_outlined,drawerIconsText: 'Log Out',name: logOut.routeName,),
                 ],
               ),
             ),

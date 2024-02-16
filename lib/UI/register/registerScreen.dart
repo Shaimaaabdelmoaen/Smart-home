@@ -124,7 +124,7 @@ class registerScreen extends StatelessWidget {
                           Navigator.pushNamed(context, loginScreen.routeName);
 
                         },
-                        child: Text("Already a member? Sign In",style: TextStyle(color: Colors.white),),
+                        child: Text("Already a member?Sign In",style: TextStyle(fontSize: 15),),
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -205,7 +205,7 @@ class registerScreen extends StatelessWidget {
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('OK'),
+                  child: Text('OK',style: TextStyle(color: Theme.of(context).secondaryHeaderColor),),
                 ),
               ],
             ),

@@ -13,7 +13,7 @@ class homeContainers extends StatelessWidget{
       width: double.infinity,
       height:height,
       decoration: BoxDecoration(
-        color: Color(0xFF262D3B33),
+        color: Theme.of(context).colorScheme.onSecondary,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
@@ -38,14 +38,12 @@ class homeContainers extends StatelessWidget{
                 Text(
                   name!,
                   style: const TextStyle(
-                    color: Colors.black54,
-                    fontSize: 20,
                   ),
                 ),
                 Icon(icon,color: Theme.of(context).primaryColor,size: 30,),
               ],
             ),
-            Divider(color: Colors.black38,height: Checkbox.width,),
+            Divider(color: Theme.of(context).dividerColor,),
             if (child != null) ...[
               const SizedBox(height: 10),
               child!,
