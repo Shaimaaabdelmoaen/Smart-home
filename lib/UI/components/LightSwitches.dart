@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home1/UI/components/spaces/space.05.dart';
 
 class LightSwitches extends StatefulWidget {
   final String nameSwitch;
@@ -37,7 +38,7 @@ class _LightSwitchesState extends State<LightSwitches> {
             Row(
               children: [
                 Icon(Icons.lightbulb, size: 25, color: isSwitched ? Colors.orange : Colors.indigo,),
-                SizedBox(width: 10,),
+                space1(),
                 Text(widget.nameSwitch),
               ],
             ),
@@ -46,6 +47,7 @@ class _LightSwitchesState extends State<LightSwitches> {
               onChanged: (value) {
                 setState(() {
                   isSwitched = value;
+                  return ;
                 });
               },
             ),

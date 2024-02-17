@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       themeMode: SettingsProvider.currentTheme,
-      theme: myThemeData.lightTheme,
+      theme: myThemeData.darkTheme,
       darkTheme: myThemeData.darkTheme,
       routes: {
         homeScreen.routeName:(_)=>homeScreen(),

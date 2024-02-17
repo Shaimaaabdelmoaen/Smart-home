@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smart_home1/UI/components/spaces/space.05.dart';
 import 'package:smart_home1/UI/login/loginScreen.dart';
 import '../../validation/validationUtilts.dart';
 import '../components/customFormField.dart';
@@ -22,13 +23,16 @@ class registerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
     return Scaffold(
       backgroundColor: Theme
           .of(context)
           .primaryColor,
       body: Center(
         child: Container(
-          margin: EdgeInsets.only(top:85,right: 15,left: 15),
+          margin: EdgeInsets.only(top:mediaQuery.size.height*.06,right: mediaQuery.size.width*.025,left: mediaQuery.size.width*.025),
           child: Form(
             key: formKey,
             child: SingleChildScrollView(
@@ -37,15 +41,15 @@ class registerScreen extends StatelessWidget {
                 children: [
                   Image.asset(
                     'assets/images/undraw_hire_re_gn5j.png',
-                    width: 100,
-                    height: 100,
+                    width: mediaQuery.size.width,
+                    height: mediaQuery.size.height*.14,
                   ),
                   Text(
                     'Sign Up',
                     style:
                     TextStyle(fontWeight: FontWeight.bold, fontSize: 30,color: Colors.white),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 10,),
                   customFormField(
                     prefixIcon: Icon(Icons.person_outline),
                     hintText: 'Enter your Name',
@@ -157,8 +161,8 @@ class registerScreen extends StatelessWidget {
                     alignment:  Alignment.bottomRight,
                     child: Image.asset(
                       'assets/images/undraw_join_re_w1lh.png',
-                      width: 80,
-                      height: 80,
+                      width: mediaQuery.size.width*.2,
+                      height: mediaQuery.size.height*.1,
                     ),
                   ),
                 ],

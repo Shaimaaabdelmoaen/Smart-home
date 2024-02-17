@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_home1/UI/Home/homeScreen.dart';
 import 'package:smart_home1/UI/components/customFormField.dart';
+import 'package:smart_home1/UI/components/spaces/space.05.dart';
 import 'package:smart_home1/UI/register/registerScreen.dart';
 import 'package:http/http.dart'as http;
 
@@ -18,11 +19,14 @@ class loginScreen extends StatelessWidget{
   final GlobalKey<FormState> FormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Center(
         child: Container(
-          padding: EdgeInsets.all(12),
+          padding: EdgeInsets.all(16),
           child: Form(
             key:FormKey , //to access the component
             child: SingleChildScrollView(
@@ -30,10 +34,10 @@ class loginScreen extends StatelessWidget{
                 crossAxisAlignment:CrossAxisAlignment.stretch ,
                 children: [
                   Image.asset('assets/images/undraw_mobile_encryption_re_yw3.png',
-                    width: 150,
-                    height: 150,
+                    width: mediaQuery.size.width,
+                    height: mediaQuery.size.height*.25,
                   ),
-                  SizedBox(height: 20,),
+                  space1(),
                   Text('SMART HOME',
                     textAlign:  TextAlign.center,
                     style: TextStyle(
@@ -42,7 +46,7 @@ class loginScreen extends StatelessWidget{
                     color: Colors.white,
                   ),
                   ),
-                  SizedBox(height: 10,),
+                  space1(),
                   customFormField(
                     prefixIcon: Icon(Icons.email),
                       hintText: 'ex@gmail.com',
@@ -59,6 +63,7 @@ class loginScreen extends StatelessWidget{
                     },
                     controller: email,
                   ),
+                  space1(),
                   customFormField(
                     prefixIcon: Icon(Icons.key),
                       hintText: '********',
@@ -75,7 +80,7 @@ class loginScreen extends StatelessWidget{
                     },
                     controller: password,
                   ),
-                  SizedBox(height: 24,),
+                  space1(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
