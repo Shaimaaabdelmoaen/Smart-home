@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_home1/UI/Home/componentsHomePlan/lights.dart';
+import 'package:smart_home1/UI/Home/componentsHomePlan/temperature.dart';
 import 'package:smart_home1/UI/components/spaces/space.05.dart';
 
 import '../components/LightSwitches.dart';
 import '../components/homeContainers.dart';
+import 'componentsHomePlan/door.dart';
 import 'drawer/homeDrawer.dart';
 
 class homeScreen extends StatefulWidget{
@@ -60,6 +62,8 @@ class _homeScreenState extends State<homeScreen> {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
     final screenHeight = mediaQuery.size.height;
+    final planHeight=mediaQuery.size.height*.6;
+    final planWidth=mediaQuery.size.width;
     return Scaffold(
       drawer:homeDrawer(),
       appBar: AppBar(
@@ -107,30 +111,68 @@ class _homeScreenState extends State<homeScreen> {
                 height: mediaQuery.size.height*.8,
                 name: 'Home Plan',
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 30),
+                  padding: const EdgeInsets.only(top: 10),
                   child: Stack(
                     children: [
-                      Image.asset('assets/images/home_plan.png',),
+                      Image.asset('assets/images/home_plan.png',
+                        height:mediaQuery.size.height*.6,
+                        width: mediaQuery.size.width*.5 ,
+                      ),
                       Positioned(
-                        top: mediaQuery.size.height*.1,
-                          left: mediaQuery.size.width*.04,
-                          child: lights(),
+                        top: planHeight*.2,
+                          left: mediaQuery.size.width*.06,
+                          child: lights(onLightClicked: _toggleKitchenSwitch),
                       ),
                       Positioned(
                         top: mediaQuery.size.height*.15,
                           right:mediaQuery.size.width*.35,
-                          child: lights(),
+                          child: lights(onLightClicked:_toggleLivingRoomSwitch ,),
                       ),
                       Positioned(
                         left: mediaQuery.size.width*.07,
-                        bottom: mediaQuery.size.height*.001,
-                          child: lights(),
+                        bottom: mediaQuery.size.height*.07,
+                          child: lights(onLightClicked: _togglePorchSwitch,),
                       ),
                       Positioned(
                         bottom: mediaQuery.size.height*.15,
                           right:mediaQuery.size.width*.1,
-                          child: lights(),
-                      )
+                          child: lights(onLightClicked:_toggleGarageSwitch ,),
+                      ),
+                      Positioned(
+                        top: mediaQuery.size.height*.125,
+                        left: mediaQuery.size.width*.001,
+                        child: temperature(),
+                      ),
+                      Positioned(
+                        top: mediaQuery.size.height*.15,
+                        right:mediaQuery.size.width*.25,
+                        child: temperature(),
+                      ),
+                      Positioned(
+                        bottom: mediaQuery.size.height*.07,
+                        left: mediaQuery.size.width*.01,
+                        child: temperature(),
+                      ),
+                      Positioned(
+                        bottom: mediaQuery.size.height*.15,
+                        right: mediaQuery.size.width*.04,
+                        child: temperature(),
+                      ),
+                      Positioned(
+                        top: mediaQuery.size.height*.04,
+                        left: mediaQuery.size.width*.04,
+                        child: door(),
+                      ),
+                      Positioned(
+                        bottom: mediaQuery.size.height*.04,
+                        left:mediaQuery.size.width*.2,
+                        child: door(),
+                      ),
+                      Positioned(
+                        bottom: mediaQuery.size.height*.16,
+                        right:mediaQuery.size.width*.28,
+                        child: door(),
+                      ),
                     ],
                   ),
                 ),
@@ -141,21 +183,47 @@ class _homeScreenState extends State<homeScreen> {
                   name: 'Lights',
                 child: Column(
                     children: [
-                      LightSwitches(
-                          nameSwitch: 'All Lights',
-                        ),
-                      LightSwitches(
-                          nameSwitch:'Kitchen Lights',
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            '  All Lights',
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 27,
+                              //fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Switch(value: isMasterSwitched,
+                            onChanged: (value) {
+                              setState(() {
+                                isMasterSwitched = value;
+                                isKitchenSwitched = value;
+                                isLivingRoomSwitched = value;
+                                isPorchSwitched = value;
+                                isGarageSwitched = value;
+                              });
+                            },
+                          ),
+                        ],
                       ),
                       LightSwitches(
-                          nameSwitch:'Living Room Lights',
-                      ),
+                        nameSwitch:'Kitchen Lights',
+                        isSwitched: isKitchenSwitched,
+                        onChange: _toggleKitchenSwitch,),
+
                       LightSwitches(
-                          nameSwitch:'Porch Lights',
-                      ),
+                        nameSwitch:'Living Room Lights',
+                        isSwitched: isLivingRoomSwitched,
+                        onChange: _toggleLivingRoomSwitch,),
                       LightSwitches(
-                          nameSwitch:'Garage Lights',
-                      ),
+                        nameSwitch:'Porch Lights',
+                        isSwitched: isPorchSwitched,
+                        onChange: _togglePorchSwitch,),
+                      LightSwitches(
+                        nameSwitch:'Garage Lights',
+                        isSwitched: isGarageSwitched,
+                        onChange: _toggleGarageSwitch,),
                     ]
 
                 ),

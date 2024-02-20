@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class lights extends StatefulWidget{
+  final Function(bool) onLightClicked;
+
+  lights({Key? key, required this.onLightClicked}) : super(key: key);
   @override
   State<lights> createState() => _lightsState();
 }
@@ -11,6 +14,7 @@ class _lightsState extends State<lights> {
   void toggleLight() {
     setState(() {
       isLightOn = !isLightOn;
+      widget.onLightClicked(isLightOn);
     });
   }
   @override

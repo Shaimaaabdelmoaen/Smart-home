@@ -121,6 +121,7 @@ class registerScreen extends StatelessWidget {
                     controller: password_confirmationController,
                   ),
                   Row(
+                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       InkWell(
@@ -158,6 +159,7 @@ class registerScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 10,),
                   Container(
+                    width: mediaQuery.size.width,
                     alignment:  Alignment.bottomRight,
                     child: Image.asset(
                       'assets/images/undraw_join_re_w1lh.png',

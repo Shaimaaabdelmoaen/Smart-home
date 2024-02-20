@@ -82,6 +82,7 @@ class loginScreen extends StatelessWidget{
                   ),
                   space1(),
                   Row(
+                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       InkWell(
