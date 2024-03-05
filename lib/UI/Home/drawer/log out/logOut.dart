@@ -6,7 +6,7 @@ class logOut extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('r'),
+      body: Text('logOut'),
     );
   }
 

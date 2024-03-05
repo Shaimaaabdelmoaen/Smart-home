@@ -1,10 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart'as http;
+
+import '../../api/ApiManager.dart';
+import '../Home/componentsHomePlan/lights.dart';
 
 class LightSwitches extends StatelessWidget {
   final String nameSwitch;
   final  bool isSwitched;
   final ValueChanged<bool> onChange;
-  const LightSwitches({Key? key, required this.nameSwitch , required this.isSwitched , required this.onChange}) : super(key: key);
+
+  const LightSwitches(
+      {Key? key,
+        required this.nameSwitch ,
+        required this.isSwitched ,
+        required this.onChange,
+      }) : super(key: key);
+  void toggleLamp(bool newValue) async {
+    try {
+      await APIManager.toggleLamp(newValue);
+      onChange(newValue);
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
 
   @override
 
@@ -43,7 +61,10 @@ class LightSwitches extends StatelessWidget {
               ),
               Switch(
                 value: isSwitched ,
-                onChanged: onChange,
+                onChanged: (value) {
+                  //onChange(value);
+                  toggleLamp(value);
+                },
               ),
 
             ],

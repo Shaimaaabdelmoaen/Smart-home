@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_home1/UI/Home/homeScreen.dart';
 import 'package:smart_home1/UI/components/customFormField.dart';
 import 'package:smart_home1/UI/components/spaces/space.05.dart';
+import 'package:smart_home1/UI/forgetPassword/checkEmail.dart';
 import 'package:smart_home1/UI/register/registerScreen.dart';
 import 'package:http/http.dart'as http;
 
@@ -14,8 +15,8 @@ import '../../api/ApiManager.dart';
 import '../../validation/validationUtilts.dart';
 class loginScreen extends StatelessWidget{
   static const routeName='login';
-  TextEditingController email=TextEditingController(text: 'shrouka.mohamed@gmail.com');
-  TextEditingController password=TextEditingController(text: '123123');
+  TextEditingController email=TextEditingController(text: 'sa3073@fayoum.edu.eg');
+  TextEditingController password=TextEditingController(text: 'pit%TLB7');
   final GlobalKey<FormState> FormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -85,15 +86,30 @@ class loginScreen extends StatelessWidget{
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      InkWell(
-                        onTap: (){
-                          Navigator.pushNamed(context, registerScreen.routeName);
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          InkWell(
+                            onTap: (){
+                              Navigator.pushNamed(context, registerScreen.routeName);
 
-                        },
-                        child: Text("you don’t have Account? Register",style: TextStyle(
-                            color: Colors.white,
-                          fontSize: 15
-                        ),),
+                            },
+                            child: Text("you don’t have Account? Register",style: TextStyle(
+                                color: Colors.white,
+                              fontSize: 15
+                            ),),
+                          ),
+                          InkWell(
+                            onTap: (){
+                              Navigator.pushNamed(context, checkEmail.routename);
+
+                            },
+                            child: Text("forget password",style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15
+                            ),),
+                          ),
+                        ],
                       ),
                       ElevatedButton(
                         onPressed: (){

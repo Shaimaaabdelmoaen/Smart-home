@@ -6,7 +6,7 @@ class homeContainers extends StatelessWidget{
   String? name;
   IconData? icon;
   final Widget? child;
-  homeContainers({required this.height,required this.name,this.child,this.icon});
+  homeContainers({this.height,required this.name,this.child,this.icon});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,7 +17,7 @@ class homeContainers extends StatelessWidget{
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2), // Shadow color
+            color: Color(0xFFF2F2F2), // Shadow color
             spreadRadius: 5,
             blurRadius: 7,
             offset: Offset(0, 3),
@@ -45,9 +45,10 @@ class homeContainers extends StatelessWidget{
             ),
             Divider(color: Theme.of(context).dividerColor,),
             if (child != null) ...[
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
               child!,
             ],
+
           ],
         ),
       ),

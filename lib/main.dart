@@ -4,10 +4,14 @@ import 'package:provider/provider.dart';
 import 'package:smart_home1/UI/Home/drawer/log%20out/logOut.dart';
 import 'package:smart_home1/UI/Home/drawer/settings/settingsTap.dart';
 import 'package:smart_home1/UI/Home/homeScreen.dart';
+import 'package:smart_home1/UI/components/fingerPrint/FingerPrint.dart';
+import 'package:smart_home1/UI/forgetPassword/checkEmail.dart';
 import 'package:smart_home1/UI/login/loginScreen.dart';
 import 'package:smart_home1/UI/myThemeData.dart';
 import 'package:smart_home1/UI/register/registerScreen.dart';
 import 'package:smart_home1/provider/settingsProvider.dart';
+
+import 'UI/forgetPassword/SetNewPasswordPage.dart';
 
 //final GetIt getIt = GetIt.instance;
 /*void setupLocator() {
@@ -41,6 +45,9 @@ class MyApp extends StatelessWidget {
         loginScreen.routeName:(_)=>loginScreen(),
         settingsTap.routeName:(_)=>settingsTap(),
         logOut.routeName:(_)=>logOut(),
+        FingerPrint.routeName:(_)=>FingerPrint(),
+        checkEmail.routename:(_)=>checkEmail(),
+        SetNewPasswordPage.routename:(_)=>SetNewPasswordPage()
       },
       initialRoute: homeScreen.routeName,
     );

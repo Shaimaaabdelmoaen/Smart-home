@@ -12,13 +12,13 @@ class registerScreen extends StatelessWidget {
   static const routeName = 'register';
 
   TextEditingController nameController =
-  TextEditingController(text: 'casper1');
+  TextEditingController(text: 'shaimaa');
   TextEditingController emailController =
-  TextEditingController(text: 'casper@gmail.com');
+  TextEditingController(text: 'sa3073@fayoum.edu.eg');
   TextEditingController passwordController = TextEditingController(
-      text: '123123');
+      text: 'pit%TLB7');
   TextEditingController password_confirmationController =
-  TextEditingController(text: '123123');
+  TextEditingController(text: 'pit%TLB7');
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -129,7 +129,7 @@ class registerScreen extends StatelessWidget {
                           Navigator.pushNamed(context, loginScreen.routeName);
 
                         },
-                        child: Text("Already a member?Sign In",style: TextStyle(fontSize: 15),),
+                        child: Text("Already a member?Sign In",style: TextStyle(fontSize: 15,color: Colors.white),),
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -178,7 +178,7 @@ class registerScreen extends StatelessWidget {
 
   Future<void> registerUser(BuildContext context) async {
     final url = Uri.parse(
-        'https://75b9-41-46-40-131.ngrok-free.app/api/register');
+        'https://48f4-154-178-220-91.ngrok-free.app/api/register');
     final response = await http.post(
       url,
       body: jsonEncode({
@@ -198,10 +198,7 @@ class registerScreen extends StatelessWidget {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('token', token);
       Navigator.pushNamed(context, loginScreen.routeName);
-
-      //Navigator.of(context).pop(); // Navigate back to previous screen after successful registration.
     } else {
-      // Handle registration error.
       showDialog(
         context: context,
         builder: (context) =>

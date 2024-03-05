@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_home1/UI/Home/componentsHomePlan/lights.dart';
 import 'package:smart_home1/UI/Home/componentsHomePlan/temperature.dart';
+import 'package:smart_home1/UI/components/fingerPrint/FingerPrint.dart';
 import 'package:smart_home1/UI/components/spaces/space.05.dart';
 
 import '../components/LightSwitches.dart';
@@ -23,6 +24,8 @@ class _homeScreenState extends State<homeScreen> {
   bool isLivingRoomSwitched = false;
   bool isPorchSwitched = false;
   bool isGarageSwitched = false;
+
+  @override
   void _toggleKitchenSwitch(bool value) {
     setState(() {
       isKitchenSwitched = value;
@@ -62,14 +65,18 @@ class _homeScreenState extends State<homeScreen> {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
     final screenHeight = mediaQuery.size.height;
-    final planHeight=mediaQuery.size.height*.6;
-    final planWidth=mediaQuery.size.width;
+    final planImageHeight=mediaQuery.size.height*.62;
+    final planImageWidth=mediaQuery.size.width*.8;
     return Scaffold(
       drawer:homeDrawer(),
       appBar: AppBar(
         title: Text('Home Assistant'),
         actions: [
           IconButton(
+              onPressed: (){},
+              icon: Icon(Icons.notifications_active,)
+          ),
+          /*IconButton(
               onPressed: (){
                 showMenu(
                   context: context,
@@ -99,7 +106,7 @@ class _homeScreenState extends State<homeScreen> {
                 );
               },
               icon: Icon(Icons.more_vert)
-          )
+          )*/
         ],
       ),
       body: SingleChildScrollView(
@@ -111,66 +118,73 @@ class _homeScreenState extends State<homeScreen> {
                 height: mediaQuery.size.height*.8,
                 name: 'Home Plan',
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.all(8.0),
                   child: Stack(
                     children: [
-                      Image.asset('assets/images/home_plan.png',
-                        height:mediaQuery.size.height*.6,
-                        width: mediaQuery.size.width*.5 ,
+                      Center(
+                        child: Image.asset('assets/images/home_plan.png',
+                          height:mediaQuery.size.height*.62,
+                          width: 500 ,
+                        ),
                       ),
                       Positioned(
-                        top: planHeight*.2,
-                          left: mediaQuery.size.width*.06,
-                          child: lights(onLightClicked: _toggleKitchenSwitch),
-                      ),
-                      Positioned(
-                        top: mediaQuery.size.height*.15,
-                          right:mediaQuery.size.width*.35,
-                          child: lights(onLightClicked:_toggleLivingRoomSwitch ,),
-                      ),
-                      Positioned(
-                        left: mediaQuery.size.width*.07,
-                        bottom: mediaQuery.size.height*.07,
-                          child: lights(onLightClicked: _togglePorchSwitch,),
-                      ),
-                      Positioned(
-                        bottom: mediaQuery.size.height*.15,
-                          right:mediaQuery.size.width*.1,
-                          child: lights(onLightClicked:_toggleGarageSwitch ,),
-                      ),
-                      Positioned(
-                        top: mediaQuery.size.height*.125,
-                        left: mediaQuery.size.width*.001,
-                        child: temperature(),
+                        top: mediaQuery.size.height*.14,
+                        left: mediaQuery.size.height*.045,
+                        child: lights(
+                            onLightClicked: _toggleKitchenSwitch,
+                        ),
                       ),
                       Positioned(
                         top: mediaQuery.size.height*.15,
-                        right:mediaQuery.size.width*.25,
+                        right: mediaQuery.size.width*.22,
+                        child: lights(
+                            onLightClicked: _toggleLivingRoomSwitch),
+                      ),
+                      Positioned(
+                        left: mediaQuery.size.width * 0.08,
+                        bottom: mediaQuery.size.height * 0.1,
+                        child: lights(
+                            onLightClicked: _togglePorchSwitch),
+                      ),
+                      Positioned(
+                        bottom: mediaQuery.size.height * 0.18,
+                        right: mediaQuery.size.width * 0.01,
+                        child: lights(
+                            onLightClicked: _toggleGarageSwitch),
+                      ),
+                      Positioned(
+                        top: mediaQuery.size.height * 0.15,
+                        left: mediaQuery.size.width * 0.001,
                         child: temperature(),
                       ),
                       Positioned(
-                        bottom: mediaQuery.size.height*.07,
-                        left: mediaQuery.size.width*.01,
+                        top: mediaQuery.size.height * 0.15,
+                        right: mediaQuery.size.width * 0.39,
                         child: temperature(),
                       ),
                       Positioned(
-                        bottom: mediaQuery.size.height*.15,
-                        right: mediaQuery.size.width*.04,
+                        bottom:  mediaQuery.size.height * 0.1,
+                        left: mediaQuery.size.width * 0.0001,
                         child: temperature(),
                       ),
                       Positioned(
-                        top: mediaQuery.size.height*.04,
-                        left: mediaQuery.size.width*.04,
+                        bottom: mediaQuery.size.height * 0.18,
+                        right: mediaQuery.size.width * 0.15,
+                        child: temperature(),
+                      ),
+                      Positioned(
+                        top: mediaQuery.size.height * 0.08,
+                        left: mediaQuery.size.width * 0.05,
                         child: door(),
                       ),
                       Positioned(
-                        bottom: mediaQuery.size.height*.04,
-                        left:mediaQuery.size.width*.2,
+                        bottom: mediaQuery.size.height * 0.075,
+                        left: mediaQuery.size.width * 0.18,
                         child: door(),
                       ),
                       Positioned(
-                        bottom: mediaQuery.size.height*.16,
-                        right:mediaQuery.size.width*.28,
+                        bottom: mediaQuery.size.height * 0.19,
+                        right: mediaQuery.size.width * 0.28,
                         child: door(),
                       ),
                     ],
@@ -179,8 +193,8 @@ class _homeScreenState extends State<homeScreen> {
               ),
               space1(),
               homeContainers(
-                  height: mediaQuery.size.height*.7,
-                  name: 'Lights',
+                height: mediaQuery.size.height*.7,
+                name: 'Lights',
                 child: Column(
                     children: [
                       Row(
@@ -210,34 +224,61 @@ class _homeScreenState extends State<homeScreen> {
                       LightSwitches(
                         nameSwitch:'Kitchen Lights',
                         isSwitched: isKitchenSwitched,
-                        onChange: _toggleKitchenSwitch,),
+                        onChange: _toggleKitchenSwitch,
+                      ),
 
                       LightSwitches(
                         nameSwitch:'Living Room Lights',
                         isSwitched: isLivingRoomSwitched,
-                        onChange: _toggleLivingRoomSwitch,),
+                        onChange: _toggleLivingRoomSwitch,
+                        // Pass the toggle function from lights widget
+                      ),
                       LightSwitches(
                         nameSwitch:'Porch Lights',
                         isSwitched: isPorchSwitched,
-                        onChange: _togglePorchSwitch,),
+                        onChange: _togglePorchSwitch,
+                        // Pass the toggle function from lights widget
+                      ),
                       LightSwitches(
                         nameSwitch:'Garage Lights',
                         isSwitched: isGarageSwitched,
-                        onChange: _toggleGarageSwitch,),
+                        onChange: _toggleGarageSwitch,
+                        // Pass the toggle function from lights widget
+                      ),
                     ]
 
                 ),
               ),
               space1(),
               homeContainers(
-                  height: mediaQuery.size.height*.5,
+                height: mediaQuery.size.height*.5,
                 icon: Icons.thermostat,
-                  name: 'Temperature',
+                name: 'Temperature',
               ),
               space1(),
               homeContainers(
-                  height: mediaQuery.size.height*.35,
-                  name: 'Security',
+                height: mediaQuery.size.height*.35,
+                icon: Icons.fingerprint_sharp,
+                name: 'Finger print',
+                child:Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: ElevatedButton(
+                      onPressed: (){
+                        Navigator.pushNamed(context, FingerPrint.routeName);
+                      },
+                      child: Row(
+                        mainAxisAlignment:MainAxisAlignment.center ,
+                        children: [
+                          Text('finger print'),
+                          Icon(Icons.verified_user_outlined)
+                        ],
+                      )),
+                ),
+              ),
+              space1(),
+              homeContainers(
+                height: mediaQuery.size.height*.35,
+                name: 'Security',
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [

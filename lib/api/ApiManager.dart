@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class APIManager {
   static Future<String?> login(String email, String password) async {
-    final String apiUrl = 'https://75b9-41-46-40-131.ngrok-free.app/api/login';
+    final String apiUrl = 'https://7ec1-154-178-220-91.ngrok-free.app/api/login';
     final Map<String, dynamic> formData = {
       'email': email.trim(),
       'password': password.trim(),
@@ -25,4 +25,33 @@ class APIManager {
       throw Exception('An error occurred. Please try again later.');
     }
   }
+  static Future<void> toggleLamp(bool newValue) async {
+    final String apiUrl = 'https://3f38-41-46-56-91.ngrok-free.app/api/door';
+    final headers = {
+      'Content-Type': 'application/json',
+    };
+    final Map<String, dynamic> body = {
+      "status":"close",//newValue
+    };
+
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: headers,
+        body: json.encode(body),
+      );
+      if (response.statusCode != 200) {
+        throw Exception('Failed to toggle lamp: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('An error occurred. Please try again later.');
+    }
+  }
+  /*void sendOpenRequest() {
+    toggleLamp('open');
+  }
+
+  void sendCloseRequest() {
+    toggleLamp('close');
+  }*/
 }
