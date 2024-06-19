@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_home1/UI/Home/drawer/log%20out/logOut.dart';
 import 'package:smart_home1/UI/Home/drawer/settings/settingsTap.dart';
+import 'package:smart_home1/UI/Home/drawer/userProfile/profile_page.dart';
 import 'package:smart_home1/UI/components/drawerRow.dart';
 
 class homeDrawer extends StatefulWidget{
@@ -42,10 +43,15 @@ class _homeDrawerState extends State<homeDrawer> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Center(
-                  child: CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                InkWell(
+                  onTap: (){
+                    Navigator.of(context).pushNamed(ProfilePage.routeName);
+                  },
+                  child: Center(
+                    child: CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                    ),
                   ),
                 ),
                 SizedBox(height: 10),
@@ -79,7 +85,7 @@ class _homeDrawerState extends State<homeDrawer> {
           ListTile(
             title: drawerRow(drawericons: Icons.logout, drawerIconsText: 'Log Out'),
             onTap: () {
-              Navigator.pushNamed(context, logOut.routeName);
+              logout(context);
 
             },
           ),

@@ -101,7 +101,7 @@ class loginScreen extends StatelessWidget{
                           ),
                           InkWell(
                             onTap: (){
-                              Navigator.pushNamed(context, checkEmail.routename);
+                              Navigator.pushNamed(context, CheckEmailPage.routeName);
 
                             },
                             child: Text("forget password",style: TextStyle(

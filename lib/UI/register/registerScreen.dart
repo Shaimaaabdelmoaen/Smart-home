@@ -178,7 +178,7 @@ class registerScreen extends StatelessWidget {
 
   Future<void> registerUser(BuildContext context) async {
     final url = Uri.parse(
-        'https://48f4-154-178-220-91.ngrok-free.app/api/register');
+        'https://2d16-41-46-32-107.ngrok-free.app/api/register');
     final response = await http.post(
       url,
       body: jsonEncode({

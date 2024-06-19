@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class APIManager {
   static Future<String?> login(String email, String password) async {
-    final String apiUrl = 'https://7ec1-154-178-220-91.ngrok-free.app/api/login';
+    final String apiUrl = 'https://2d16-41-46-32-107.ngrok-free.app/api/login';
     final Map<String, dynamic> formData = {
       'email': email.trim(),
       'password': password.trim(),
@@ -26,7 +26,7 @@ class APIManager {
     }
   }
   static Future<void> toggleLamp(bool newValue) async {
-    final String apiUrl = 'https://3f38-41-46-56-91.ngrok-free.app/api/door';
+    final String apiUrl = 'https://2d16-41-46-32-107.ngrok-free.app/api/door';
     final headers = {
       'Content-Type': 'application/json',
     };
