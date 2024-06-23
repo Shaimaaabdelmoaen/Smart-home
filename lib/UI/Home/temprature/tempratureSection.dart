@@ -123,7 +123,9 @@ class TemperatureData {
     );
   }
 }*/
-import 'dart:async';
+
+/////////////////////***********this is open*************///////////////////////
+/*import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -219,7 +221,8 @@ class TemperatureData {
   final double temperature;
 
   TemperatureData(this.time, this.temperature);
-}
+}*/
+/////////////////////************end**************////////////////
 /*import 'dart:async';
 import 'dart:math';
 
@@ -315,3 +318,112 @@ class TemperatureData {
 
   TemperatureData(this.time, this.temperature);
 }*/
+//important this for long polling
+
+import 'dart:async';
+import 'dart:convert';
+import 'dart:math';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:smart_home1/api/constant.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+
+import 'longPolling.dart';
+class TemperatureChart extends StatefulWidget {
+  static const String routeName = 'temperatureSection';
+  @override
+  _TemperatureChartState createState() => _TemperatureChartState();
+}
+
+class _TemperatureChartState extends State<TemperatureChart> {
+  List<TemperatureData> _chartData = [];
+  late LongPolling _longPolling;
+
+  @override
+  void initState() {
+    super.initState();
+    _generateInitialData();
+    _longPolling = LongPolling('${Constant.base_url}temp', _onDataReceived);
+    _longPolling.start();
+  }
+
+  @override
+  void dispose() {
+    _longPolling.stop();
+    super.dispose();
+  }
+
+  void _generateInitialData() {
+    final currentTime = DateTime.now();
+    final random = Random();
+    for (int i = 0; i < 20; i++) {
+      _chartData.add(
+          TemperatureData(
+        currentTime.subtract(
+            Duration(minutes: i * 10)
+        ),
+        15 + random.nextDouble() * 20,
+      )
+      );
+    }
+    _chartData = _chartData.reversed.toList();
+  }
+
+  void _onDataReceived(String data) {
+    final jsonData = json.decode(data);
+    final temperature = jsonData['temperature'] as double;
+    setState(() {
+      _chartData.add(
+          TemperatureData(
+              DateTime.now(),
+              temperature
+          )
+      );
+      if (_chartData.length > 20) {
+        _chartData.removeAt(0);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _chartData.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : Container(
+        height: 240,
+        child: SfCartesianChart(
+          primaryXAxis: DateTimeAxis(
+              labelStyle: TextStyle(fontSize: 18)),
+          primaryYAxis: NumericAxis(
+              minimum: 15,
+              maximum: 35,
+              interval: 5,
+              labelStyle: TextStyle(fontSize: 18)),
+          series: <ChartSeries>[
+            LineSeries<TemperatureData, DateTime>(
+              color: Theme.of(context).primaryColor,
+              dataSource: _chartData,
+              xValueMapper: (TemperatureData data, _) => data.time,
+              yValueMapper: (TemperatureData data, _) => data.temperature,
+            ),
+            AreaSeries<TemperatureData, DateTime>(
+              dataSource: _chartData,
+              xValueMapper: (TemperatureData data, _) => data.time,
+              yValueMapper: (TemperatureData data, _) => data.temperature,
+              color: Theme.of(context)
+                  .primaryColor
+                  .withOpacity(0.8), // Fill color
+            ),
+          ],
+        ),
+      );
+  }
+}
+
+class TemperatureData {
+  final DateTime time;
+  final double temperature;
+
+  TemperatureData(this.time, this.temperature);
+}

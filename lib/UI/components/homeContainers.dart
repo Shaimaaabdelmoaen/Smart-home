@@ -1,17 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class homeContainers extends StatelessWidget{
+class homeContainers extends StatefulWidget{
   double? height;
   String? name;
   IconData? icon;
   final Widget? child;
   homeContainers({this.height,required this.name,this.child,this.icon});
+
+  @override
+  State<homeContainers> createState() => _homeContainersState();
+}
+
+class _homeContainersState extends State<homeContainers> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      height:height,
+      width: MediaQuery.of(context).size.width,
+      height:widget.height,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onSecondary,
         borderRadius: BorderRadius.circular(10),
@@ -36,17 +42,17 @@ class homeContainers extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  name!,
+                  widget.name!,
                   style: const TextStyle(
                   ),
                 ),
-                Icon(icon,color: Theme.of(context).primaryColor,size: 30,),
+                Icon(widget.icon,color: Theme.of(context).primaryColor,size: 30,),
               ],
             ),
             Divider(color: Theme.of(context).dividerColor,),
-            if (child != null) ...[
+            if (widget.child != null) ...[
               const SizedBox(height: 15),
-              child!,
+              widget.child!,
             ],
 
           ],

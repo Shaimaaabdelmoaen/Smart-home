@@ -39,7 +39,12 @@ class myThemeData{
           secondary: Color(0xFFC48657),
           onPrimary: Colors.white,
           onSecondary: Color(0xFF262D3B33),
-          background: Colors.white
+          background: Colors.white,
+
+      ),
+      iconTheme: IconThemeData(
+          color:Color(0xFFC48657),
+        size: 30
       ),
       useMaterial3: true,
       bottomSheetTheme: const BottomSheetThemeData(

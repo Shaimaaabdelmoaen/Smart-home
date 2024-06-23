@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_home1/UI/Home/homeScreen.dart';
 import 'package:smart_home1/UI/components/customFormField.dart';
 import 'package:smart_home1/UI/components/spaces/space.05.dart';
@@ -148,6 +149,10 @@ class loginScreen extends StatelessWidget{
     try {
       final token = await APIManager.login(email.text, password.text);
       if (token != null) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', token);
+        final email = await getEmail();//
+        print('Logged in with email: $email');//
         Navigator.pushNamed(context, homeScreen.routeName);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Invalid credentials')));
@@ -155,6 +160,10 @@ class loginScreen extends StatelessWidget{
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
     }
+  }
+  Future<String?> getEmail() async {//
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('email');
   }
 
   }

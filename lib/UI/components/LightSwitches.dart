@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 
 import '../../api/ApiManager.dart';
-import '../Home/componentsHomePlan/lights.dart';
-
 class LightSwitches extends StatelessWidget {
   final String nameSwitch;
   final  bool isSwitched;
@@ -28,8 +26,6 @@ class LightSwitches extends StatelessWidget {
 
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final screenWidth = mediaQuery.size.width;
-    final screenHeight = mediaQuery.size.height;
     return Center(
       child: Padding(
         padding:  EdgeInsets.only(bottom: mediaQuery.size.height*.035),
@@ -62,7 +58,6 @@ class LightSwitches extends StatelessWidget {
               Switch(
                 value: isSwitched ,
                 onChanged: (value) {
-                  //onChange(value);
                   toggleLamp(value);
                 },
               ),

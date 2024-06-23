@@ -39,7 +39,6 @@ class customFormField extends StatelessWidget{
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(50),
                   borderSide: BorderSide(color: Colors.white)),
-
               fillColor: Colors.white12,
               filled: true
             ),

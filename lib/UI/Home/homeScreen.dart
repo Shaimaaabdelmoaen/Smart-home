@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:smart_home1/UI/Home/doorSection/door.dart';
 import 'package:smart_home1/UI/Home/componentsHomePlan/lights.dart';
 import 'package:smart_home1/UI/Home/componentsHomePlan/temperature.dart';
 import 'package:smart_home1/UI/Home/temprature/tempratureSection.dart';
@@ -10,7 +11,8 @@ import 'dart:math' as math;
 
 import '../components/LightSwitches.dart';
 import '../components/homeContainers.dart';
-import 'componentsHomePlan/door.dart';
+import 'SmartDevices/smartDivicesSection.dart';
+import 'camera/VideoStreamScreen.dart';
 import 'drawer/homeDrawer.dart';
 
 class homeScreen extends StatefulWidget{
@@ -66,10 +68,6 @@ class _homeScreenState extends State<homeScreen> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final screenWidth = mediaQuery.size.width;
-    final screenHeight = mediaQuery.size.height;
-    final planImageHeight=mediaQuery.size.height*.62;
-    final planImageWidth=mediaQuery.size.width*.8;
     return Scaffold(
       drawer:homeDrawer(),
       appBar: AppBar(
@@ -79,37 +77,6 @@ class _homeScreenState extends State<homeScreen> {
               onPressed: (){},
               icon: Icon(Icons.notifications_active,)
           ),
-          /*IconButton(
-              onPressed: (){
-                showMenu(
-                  context: context,
-                  position: RelativeRect.fromLTRB(100, 100, 0, 0),
-                  items: [
-                    PopupMenuItem<String>(
-                      value: 'Option 1',
-                      child: Row(
-                        children: [
-                          Icon(Icons.search),
-                          SizedBox(width:10,),
-                          Text('Search')
-                        ],
-                      ),
-                    ),
-                    PopupMenuItem<String>(
-                      value: 'Option 2',
-                      child: Row(
-                        children: [
-                          Icon(Icons.edit),
-                          SizedBox(width: 10,),
-                          Text('Edit dashboard')
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-              },
-              icon: Icon(Icons.more_vert)
-          )*/
         ],
       ),
       body: SingleChildScrollView(
@@ -122,165 +89,82 @@ class _homeScreenState extends State<homeScreen> {
                 name: 'Home Plan',
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Center(
-                    child: Container(
-                      //color: Colors.amber,
-                      width: 500,
-                      child: Stack(
-                        children: [
-                          Center(
-                            child: Container(
-                              width:500,
-                              height: 420,
-                              decoration: BoxDecoration(
-                                image:DecorationImage(
-                                    image: AssetImage('assets/images/home_plan.png',)
-                                    ,fit: BoxFit.fill)
-                              ),
-                              child:Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height/1.6,
+                          decoration: BoxDecoration(
+                            image:DecorationImage(
+                                image: AssetImage('assets/images/home_plan.png',)
+                                ,fit: BoxFit.fill)
+                          ),
+                          child:Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              SizedBox(height: 35,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  SizedBox(height: 40,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Transform.rotate(
-                                        angle: 1.5 * math.pi / 2, // 270 درجة بالتحويل إلى راديان
-                                        child: Icon(
-                                          Icons.videocam_sharp,
-                                          size: 35,
-                                        ),
-                                      ),
-                                      Transform.rotate(
-                                        angle: 4.5 * math.pi / 2, // 270 درجة بالتحويل إلى راديان
-                                        child: Icon(
-                                          Icons.videocam_sharp,
-                                          size: 35,
-                                        ),
-                                      ),
-                                    ],
-
-                                  ),
-                                  /*Icon(Icons.videocam_sharp,size: 30),*/
-                                  Expanded(
-                                    flex: 1,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(right: 10),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Flexible(
-                                              child: lights(
-                                                onLightClicked: _toggleKitchenSwitch,
-                                              ),
-                                            ),
-                                            Flexible(child: temperature()),
-                                            Flexible(child: temperature()),
-                                            Flexible(
-                                              child: lights(
-                                                  onLightClicked: _toggleLivingRoomSwitch),
-                                            ),
-                                            Flexible(child: temperature()),
-                                            Flexible(
-                                              child: lights(
-                                                  onLightClicked: _togglePorchSwitch),
-                                            ),
-
-
-                                          ],
-
-                                        ),
-                                      )),
-                                  Expanded(
-                                    flex: 2,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(top: 30),
-                                        child: Row(
-                                          children: [
-                                            Flexible(
-                                              child: lights(
-                                                  onLightClicked:_toggleGarageSwitch ),
-                                            ),
-                                            Flexible(child: temperature()),
-                                          ],
-
-                                        ),
-                                      )),
-
+                                  VideoStreamPage(angle :1.5 * math.pi / 2,),
+                                  VideoStreamPage(angle: 4.5 * math.pi / 2,),
                                 ],
-                              )
-                              /* Image.asset('assets/images/home_plan.png',
-                                height:mediaQuery.size.height*.62,
-                                width: 500 ,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 10,bottom: 30),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Flexible(
+                                          child: lights(
+                                            isLightOn: isKitchenSwitched,
+                                            onLightClicked: _toggleKitchenSwitch,
+                                          ),
+                                        ),
+                                        Flexible(child: temperature()),
+                                        Flexible(child: temperature()),
+                                        Flexible(
+                                          child: lights(
+                                            isLightOn: isLivingRoomSwitched,
+                                              onLightClicked: _toggleLivingRoomSwitch),
+                                        ),
+                                        Flexible(child: temperature()),
+                                        Flexible(
+                                          child: lights(
+                                            isLightOn: isPorchSwitched,
+                                              onLightClicked: _togglePorchSwitch),
+                                        ),
 
-                              ),*/
-                            ),
-                          ),
-                          /*Positioned(
-                            right: mediaQuery.size.width*.15,
-                            bottom: mediaQuery.size.height*.15,
-                            top: mediaQuery.size.height*.14,
-                            left: mediaQuery.size.width*.045,
-                            child: lights(
-                                onLightClicked: _toggleKitchenSwitch,
-                            ),
-                          ),
-                          Positioned(
-                            top: mediaQuery.size.height*.15,
-                            right: mediaQuery.size.width*.22,
-                            child: lights(
-                                onLightClicked: _toggleLivingRoomSwitch),
-                          ),
-                          Positioned(
-                            left: mediaQuery.size.width * 0.08,
-                            bottom: mediaQuery.size.height * 0.1,
-                            child: lights(
-                                onLightClicked: _togglePorchSwitch),
-                          ),
-                          Positioned(
-                            bottom: mediaQuery.size.height * 0.18,
-                            right: mediaQuery.size.width * 0.01,
-                            child: lights(
-                                onLightClicked: _toggleGarageSwitch),
-                          ),
-                          Positioned(
-                            top: mediaQuery.size.height * 0.15,
-                            left: mediaQuery.size.width * 0.001,
-                            child: temperature(),
-                          ),
-                          Positioned(
-                            top: mediaQuery.size.height * 0.15,
-                            right: mediaQuery.size.width * 0.39,
-                            child: temperature(),
-                          ),
-                          Positioned(
-                            bottom:  mediaQuery.size.height * 0.1,
-                            left: mediaQuery.size.width * 0.0001,
-                            child: temperature(),
-                          ),
-                          Positioned(
-                            bottom: mediaQuery.size.height * 0.18,
-                            right: mediaQuery.size.width * 0.15,
-                            child: temperature(),
-                          ),
-                          Positioned(
-                            top: mediaQuery.size.height * 0.08,
-                            left: mediaQuery.size.width * 0.05,
-                            child: door(),
-                          ),
-                          Positioned(
-                            bottom: mediaQuery.size.height * 0.075,
-                            left: mediaQuery.size.width * 0.18,
-                            child: door(),
-                          ),
-                          Positioned(
-                            bottom: mediaQuery.size.height * 0.19,
-                            right: mediaQuery.size.width * 0.28,
-                            child: door(),
-                          ),*/
-                        ],
+
+                                      ],
+
+                                    ),
+                                  )),
+                              Expanded(
+                                flex: 2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 30),
+                                    child: Row(
+                                      children: [
+                                        Flexible(
+                                          child: lights(
+                                            isLightOn: isGarageSwitched,
+                                              onLightClicked:_toggleGarageSwitch ),
+                                        ),
+                                        Flexible(child: temperature()),
+                                      ],
+
+                                    ),
+                                  )
+                              ),
+                            ],
+                          )
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),
@@ -298,7 +182,6 @@ class _homeScreenState extends State<homeScreen> {
                             style: TextStyle(
                               color: Colors.red,
                               fontSize: 27,
-                              //fontWeight: FontWeight.bold,
                             ),
                           ),
                           Switch(value: isMasterSwitched,
@@ -324,23 +207,35 @@ class _homeScreenState extends State<homeScreen> {
                         nameSwitch:'Living Room Lights',
                         isSwitched: isLivingRoomSwitched,
                         onChange: _toggleLivingRoomSwitch,
-                        // Pass the toggle function from lights widget
                       ),
                       LightSwitches(
                         nameSwitch:'Porch Lights',
                         isSwitched: isPorchSwitched,
                         onChange: _togglePorchSwitch,
-                        // Pass the toggle function from lights widget
                       ),
                       LightSwitches(
                         nameSwitch:'Garage Lights',
                         isSwitched: isGarageSwitched,
                         onChange: _toggleGarageSwitch,
-                        // Pass the toggle function from lights widget
                       ),
                     ]
 
                 ),
+              ),
+              space1(),
+              homeContainers(
+                  name: 'Smart Devices',
+                height: MediaQuery.of(context).size.height/1.2,
+                icon: Icons.smart_toy_sharp,
+                child: smartDevicesSection(),
+              ),
+              space1(),
+              homeContainers(
+                name: 'Door',
+                height: MediaQuery.of(context).size.height/2.5,
+                icon: Icons.door_back_door,
+                child:door() ,
+
               ),
               space1(),
               homeContainers(
@@ -370,7 +265,7 @@ class _homeScreenState extends State<homeScreen> {
                 ),
               ),
               space1(),
-              homeContainers(
+              /*homeContainers(
                 height: mediaQuery.size.height*.35,
                 name: 'Security',
                 child: Column(
@@ -400,7 +295,7 @@ class _homeScreenState extends State<homeScreen> {
                   ],
 
                 ),
-              )
+              )*/
             ],
           ),
         ),

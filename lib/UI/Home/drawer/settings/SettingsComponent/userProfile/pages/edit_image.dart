@@ -5,7 +5,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../user/user_data.dart';
 import '../widgets/appbar_widget.dart';
 
 class EditImagePage extends StatefulWidget {
@@ -16,12 +15,11 @@ class EditImagePage extends StatefulWidget {
 }
 
 class _EditImagePageState extends State<EditImagePage> {
-  var user = UserData.myUser;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context),
+      appBar: BuildAppBar(appName: 'Edit image',),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -32,7 +30,6 @@ class _EditImagePageState extends State<EditImagePage> {
                 "Upload a photo of yourself:",
                 style: TextStyle(
                   fontSize: 23,
-                  fontWeight: FontWeight.bold,
                 ),
               )),
           Padding(
@@ -51,12 +48,16 @@ class _EditImagePageState extends State<EditImagePage> {
                       final imageFile = File('${location.path}/$name');
                       final newImage =
                           await File(image.path).copy(imageFile.path);
-                      setState(
-                          () => user = user.copy(imagePath: newImage.path));
                     },
-                    child: Image.network(user.image),
+                    child: Center(
+                      child: CircleAvatar(
+                        radius: 200,
+                        backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                      ),
+                    ),
                   )
-              )),
+              )
+          ),
           Padding(
               padding: EdgeInsets.only(top: 40),
               child: Align(
@@ -68,10 +69,12 @@ class _EditImagePageState extends State<EditImagePage> {
                       onPressed: () {},
                       child: const Text(
                         'Update',
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
-                  )))
+                  )
+              )
+          )
         ],
       ),
     );

@@ -2,35 +2,32 @@ import 'dart:convert';
 import 'package:http/http.dart'as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_home1/UI/Home/drawer/log%20out/logOut.dart';
+import 'package:smart_home1/UI/Home/drawer/settings/SettingsComponent/editProfile.dart';
 import 'package:smart_home1/UI/Home/drawer/settings/settingsTap.dart';
-import 'package:smart_home1/UI/Home/drawer/userProfile/profile_page.dart';
 import 'package:smart_home1/UI/components/drawerRow.dart';
 
 class homeDrawer extends StatefulWidget{
   @override
   State<homeDrawer> createState() => _homeDrawerState();
 }
-
 class _homeDrawerState extends State<homeDrawer> {
-  Map<String, dynamic> userData = {};
+  late Future<String?> email;
+
+  @override
   void initState() {
     super.initState();
-    fetchUserData();
+    email = getEmail();
   }
 
-  Future<void> fetchUserData() async {
-    final response = await http.get(Uri.parse('https://your-api-url.com/user-data'));
-    if (response.statusCode == 200) {
-      setState(() {
-        userData = jsonDecode(response.body);
-      });
-    } else {
-      throw Exception('Failed to load user data');
-    }
+  Future<String?> getEmail() async {//
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('email');
   }
   @override
   Widget build(BuildContext context) {
+
     return Drawer(
       child:
       ListView(
@@ -41,11 +38,10 @@ class _homeDrawerState extends State<homeDrawer> {
               color: Theme.of(context).primaryColor,
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 InkWell(
-                  onTap: (){
-                    Navigator.of(context).pushNamed(ProfilePage.routeName);
+                  onTap: () {
+                    Navigator.of(context).pushNamed(editProfile.routeName);
                   },
                   child: Center(
                     child: CircleAvatar(
@@ -57,7 +53,7 @@ class _homeDrawerState extends State<homeDrawer> {
                 SizedBox(height: 10),
                 Center(
                   child: Text(
-                    userData['name'] ?? 'User Name',
+                    'Shaimaa Abdelmoaen',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -65,12 +61,23 @@ class _homeDrawerState extends State<homeDrawer> {
                   ),
                 ),
                 Center(
-                  child: Text(
-                    userData['email'] ?? 'user@example.com',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                    ),
+                  child: FutureBuilder<String?>(
+                    future: getEmail(), // Define a function to retrieve the email
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator();
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        return Text(
+                          snapshot.data ?? 'user@example.com',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ),
               ],

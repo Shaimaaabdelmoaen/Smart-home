@@ -1,57 +1,45 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'widgets/display_image_widget.dart';
-import 'user/user_data.dart';
-import 'pages/edit_email.dart';
-import 'pages/edit_image.dart';
-import 'pages/edit_name.dart';
-// This class handles the Page to dispaly the user's info on the "Edit Profile" Screen
-class ProfilePage extends StatefulWidget {
+import 'package:smart_home1/UI/Home/drawer/settings/SettingsComponent/userProfile/pages/edit_email.dart';
+import 'package:smart_home1/UI/Home/drawer/settings/SettingsComponent/userProfile/pages/edit_image.dart';
+import 'package:smart_home1/UI/Home/drawer/settings/SettingsComponent/userProfile/pages/edit_name.dart';
+import 'package:smart_home1/UI/Home/drawer/settings/SettingsComponent/userProfile/widgets/appbar_widget.dart';
+import 'package:smart_home1/UI/Home/drawer/settings/SettingsComponent/userProfile/widgets/display_image_widget.dart';
+class editProfile extends StatefulWidget {
   static const routeName='userprofile';
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _editProfileState createState() => _editProfileState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _editProfileState extends State<editProfile> {
   @override
   Widget build(BuildContext context) {
-    final user = UserData.myUser;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
+      appBar: BuildAppBar(appName: 'Edit profile'),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Center(
-                child: Padding(
-                    padding: EdgeInsets.only(bottom: 20),
-                    child: Text(
-                      'Edit Profile',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ))),
             InkWell(
                 onTap: () {
                   navigateSecondPage(EditImagePage());
                 },
-                child: DisplayImage(
-                  imagePath: user.image,
+                child:Center(
+                  child: CircleAvatar(
+                    radius:100,
+                    backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                  ),
+                ), /*DisplayImage(
+                  imagePath: AssetImage(''),
                   onPressed: () {},
-                )),
-            buildUserInfoDisplay(user.name, 'Name', EditNameFormPage()),
-            buildUserInfoDisplay(user.email, 'Email', EditEmailFormPage()),
+                )*/
+            ),
+             buildUserInfoDisplay('Name', 'Name',EditNameFormPage()),
+             buildUserInfoDisplay( 'Email','Email', EditEmailFormPage()),
           ],
         ),
       ),
     );
   }
-
-  // Widget builds the display item with the proper formatting to display the user's info
   Widget buildUserInfoDisplay(String getValue, String title, Widget editPage) =>
       Padding(
           padding: EdgeInsets.only(bottom: 10),
@@ -81,7 +69,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             bottom: BorderSide(
                       color: Colors.grey,
                       width: 1,
-                    ))),
+                    )
+                        )
+                    ),
                     child: Row(
                         children: [
                       Expanded(
@@ -94,16 +84,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Colors.grey,
                         size: 40.0,
                       )
-                    ])),
+                    ]
+                    )
+                ),
               )
             ],
-          ));
+          )
+      );
 
   FutureOr onGoBack(dynamic value) {
     setState(() {});
   }
-
-  // Handles navigation and prompts refresh.
   void navigateSecondPage(Widget editForm) {
     Route route = MaterialPageRoute(builder: (context) => editForm);
     Navigator.push(context, route).then(onGoBack);
