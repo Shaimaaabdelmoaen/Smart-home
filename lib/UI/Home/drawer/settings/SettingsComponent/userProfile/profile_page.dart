@@ -26,10 +26,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   onTap: () {
                     navigateSecondPage(EditImagePage());
                   },
-                  child: DisplayImage(
+                child: CircleAvatar(
+                  radius: 200,
+                  backgroundImage: AssetImage('assets/images/Robots-Square.png'),
+                ), /*DisplayImage(
                     imagePath: user.image,
                     onPressed: () {},
-                  )),
+                  )*/),
               buildUserInfoDisplay(user.name, 'Name', EditNameFormPage()),
               buildUserInfoDisplay(user.email, 'Email', EditEmailFormPage()),
             ],

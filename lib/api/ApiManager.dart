@@ -106,6 +106,33 @@ class APIManager {
       throw Exception('An error occurred. Please try again later.');
     }
   }
+  static Future<void> toggleall(bool newValue) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    if (token == null) {
+      return;
+    }
+    final String apiUrl = '${Constant.base_url}lights/all';
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    final Map<String, dynamic> body = {
+      "status":newValue? "on":"off",
+    };
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: headers,
+        body: json.encode(body),
+      );
+      if (response.statusCode != 200) {
+        throw Exception('Failed to toggle lamp: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('An error occurred. Please try again later.');
+    }
+  }
 
   static Future<Map<String, dynamic>> verifyOtp(String email, String otp) async {
     final url = Uri.parse('${Constant.base_url}verify-otp-mobile');

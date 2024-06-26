@@ -31,6 +31,7 @@ class _homeScreenState extends State<homeScreen> {
   bool isPorchSwitched = false;
   bool isGarageSwitched = false;
   bool isDoorOpen = false;
+  late final ValueChanged<bool> onChange;
 
   @override
   void _toggleKitchenSwitch(bool value) {
@@ -79,6 +80,29 @@ class _homeScreenState extends State<homeScreen> {
       print('Error: $e');
     }
   }
+  /*Future<void> toggleall(bool newValue) async {
+    try {
+      await APIManager.toggleall(newValue);
+      onChange(newValue);
+    } catch (e) {
+      print('Error: $e');
+    }
+  }*/
+  Future<void> toggleall(bool newValue) async {
+    try {
+      await APIManager.toggleall(newValue);
+      setState(() {
+        isMasterSwitched = newValue;
+        isKitchenSwitched = newValue;
+        isLivingRoomSwitched = newValue;
+        isPorchSwitched = newValue;
+        isGarageSwitched = newValue;
+      });
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -199,15 +223,10 @@ class _homeScreenState extends State<homeScreen> {
                               fontSize: 27,
                             ),
                           ),
-                          Switch(value: isMasterSwitched,
+                          Switch(
+                            value: isMasterSwitched,
                             onChanged: (value) {
-                              setState(() {
-                                isMasterSwitched = value;
-                                isKitchenSwitched = value;
-                                isLivingRoomSwitched = value;
-                                isPorchSwitched = value;
-                                isGarageSwitched = value;
-                              });
+                              toggleall(value);
                             },
                           ),
                         ],

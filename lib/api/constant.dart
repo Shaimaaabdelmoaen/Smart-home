@@ -1,5 +1,5 @@
 class Constant {
-  static const String base_url = "https://f682-41-46-48-53.ngrok-free.app/api/";
+  static const String base_url = "http://192.168.8.102:8000/api/";
 }
 
 
