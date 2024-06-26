@@ -20,7 +20,6 @@ import 'UI/Home/drawer/settings/SettingsComponent/Delete user/delete.dart';
 import 'UI/Home/drawer/settings/SettingsComponent/chandePassword.dart';
 import 'UI/Home/drawer/settings/SettingsComponent/userProfile/pages/edit_name.dart';
 import 'UI/Home/drawer/settings/SettingsComponent/userProfile/profile_page.dart';
-import 'UI/Home/drawer/settings/generate_otp.dart';
 import 'UI/forgetPassword/resetPassword.dart';
 
 //final GetIt getIt = GetIt.instance;
@@ -66,8 +65,6 @@ class MyApp extends StatelessWidget {
         IPWebcamScreen.routeName:(_)=>IPWebcamScreen(),
         UserList.routeName:(_)=>UserList(),
         ProfilePage.routeName:(_)=>ProfilePage(),
-        OtpPage.routeName:(_)=>OtpPage(),
-
         //checkEmail.routename:(_)=>checkEmail(),
         //SetNewPasswordPage.routename:(_)=>SetNewPasswordPage()
       },

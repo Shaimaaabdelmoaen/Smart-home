@@ -281,38 +281,6 @@ class _homeScreenState extends State<homeScreen> {
                       )),
                 ),
               ),
-              space1(),
-              /*homeContainers(
-                height: mediaQuery.size.height*.35,
-                name: 'Security',
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                        onPressed: (){},
-                        child: Row(
-                          mainAxisAlignment:MainAxisAlignment.center ,
-                          children: [
-                            Text('DISARMEDS'),
-                            Icon(Icons.verified_user_outlined)
-                          ],
-                        )),
-                    space1(),
-                    Row(
-                      mainAxisAlignment:  MainAxisAlignment.spaceBetween,
-                      children: [
-                        ElevatedButton(
-                            onPressed: (){},
-                            child: Text('ARM HOME')),
-                        ElevatedButton(
-                            onPressed: (){},
-                            child: Text('ARM AWAY'))
-                      ],
-                    )
-                  ],
-
-                ),
-              )*/
             ],
           ),
         ),

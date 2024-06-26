@@ -42,7 +42,7 @@ class _homeDrawerState extends State<homeDrawer> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('use this OTP to open door'),
-          content: Text('OTP generation process initiated.'),
+          content: Text('123456',textAlign: TextAlign.center),
           actions: <Widget>[
             TextButton(
               child: Text('Close'),

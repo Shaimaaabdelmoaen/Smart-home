@@ -159,7 +159,7 @@ class APIManager {
     if (token == null) {
       return;
     }
-    final String apiUrl = 'https://4cda-154-178-203-69.ngrok-free.app/api/door';
+    final String apiUrl = '${Constant.base_url}door';
     print("apiUrl");
     final headers = {
       'Content-Type': 'application/json',

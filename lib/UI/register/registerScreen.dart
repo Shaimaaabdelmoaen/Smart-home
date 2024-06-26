@@ -3,22 +3,24 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smart_home1/UI/Home/drawer/settings/settingsTap.dart';
 import 'package:smart_home1/UI/login/loginScreen.dart';
 import 'package:smart_home1/api/constant.dart';
 import '../../validation/validationUtilts.dart';
+import '../Home/drawer/settings/SettingsComponent/userProfile/profile_page.dart';
 import '../components/customFormField.dart';
 
 class registerScreen extends StatelessWidget {
   static const routeName = 'register';
 
   TextEditingController nameController =
-  TextEditingController(text: 'shaimaa');
+  TextEditingController();
   TextEditingController emailController =
-  TextEditingController(text: 'sa3073@fayoum.edu.eg');
+  TextEditingController();
   TextEditingController passwordController = TextEditingController(
-      text: 'pit%TLB7');
+      );
   TextEditingController password_confirmationController =
-  TextEditingController(text: 'pit%TLB7');
+  TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -165,8 +167,10 @@ class registerScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           IconButton(
-                              onPressed: (){},
-                              icon: Icon(Icons.arrow_back_sharp)),
+                              onPressed: (){
+                                Navigator.pushNamed(context, settingsTap.routeName);
+                              },
+                              icon: Icon(Icons.arrow_back_sharp,color: Colors.white,)),
                           Image.asset(
                             'assets/images/undraw_join_re_w1lh.png',
                             width: screenWidth/3,

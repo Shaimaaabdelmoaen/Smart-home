@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../../../api/constant.dart';
 import '../userProfile/widgets/appbar_widget.dart';
 
 class UserList extends StatefulWidget {
@@ -60,7 +61,7 @@ class _UserListState extends State<UserList> {
       return;
     }
     final response = await http.delete(
-      Uri.parse('https://4cda-154-178-203-69.ngrok-free.app/api/delete/user'),
+      Uri.parse('${Constant.base_url}delete/user'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',

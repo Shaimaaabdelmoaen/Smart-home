@@ -32,8 +32,8 @@ class _smartDevicesSectionState extends State<smartDevicesSection> {
     } else if (index == 2) {
       APIManager.toggleTV(newValue);
     } else if (index == 3) {
-      APIManager.toggleBuzzer(newValue);
-  }
+      APIManager.toggleKH(newValue);
+    }
   }
 
   Future<void> toggleAC(bool newValue) async {
@@ -48,8 +48,8 @@ class _smartDevicesSectionState extends State<smartDevicesSection> {
     await _toggleDevice(newValue, 'kh');
   }
 
-  Future<void> toggleBuzzer(bool newValue) async {
-    await _toggleDevice(newValue, 'buzzer');
+  Future<void> togglefan(bool newValue) async {
+    await _toggleDevice(newValue, 'ac');
   }
 
   Future<void> _toggleDevice(bool newValue, String device) async {
