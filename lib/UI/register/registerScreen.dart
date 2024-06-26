@@ -160,15 +160,19 @@ class registerScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10,),
-                      Container(
-                        width: mediaQuery.size.width,
-                        alignment:  Alignment.bottomRight,
-                        child: Image.asset(
-                          'assets/images/undraw_join_re_w1lh.png',
-                          width: screenWidth/3,
-                          height: screenHeight/6,
-                        ),
+                      SizedBox(height: 12,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                              onPressed: (){},
+                              icon: Icon(Icons.arrow_back_sharp)),
+                          Image.asset(
+                            'assets/images/undraw_join_re_w1lh.png',
+                            width: screenWidth/3,
+                            height: screenHeight/6,
+                          ),
+                        ],
                       ),
                     ],
                   ),

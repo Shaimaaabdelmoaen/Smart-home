@@ -4,11 +4,12 @@ import 'package:flutter/widgets.dart';
 import 'package:smart_home1/UI/Home/doorSection/door.dart';
 import 'package:smart_home1/UI/Home/componentsHomePlan/lights.dart';
 import 'package:smart_home1/UI/Home/componentsHomePlan/temperature.dart';
-import 'package:smart_home1/UI/Home/temprature/tempratureSection.dart';
+import 'package:smart_home1/UI/Home/temprature/temp.dart';
 import 'package:smart_home1/UI/components/fingerPrint/FingerPrint.dart';
 import 'package:smart_home1/UI/components/spaces/space.05.dart';
 import 'dart:math' as math;
 
+import '../../api/ApiManager.dart';
 import '../components/LightSwitches.dart';
 import '../components/homeContainers.dart';
 import 'SmartDevices/smartDivicesSection.dart';
@@ -29,6 +30,7 @@ class _homeScreenState extends State<homeScreen> {
   bool isLivingRoomSwitched = false;
   bool isPorchSwitched = false;
   bool isGarageSwitched = false;
+  bool isDoorOpen = false;
 
   @override
   void _toggleKitchenSwitch(bool value) {
@@ -64,7 +66,20 @@ class _homeScreenState extends State<homeScreen> {
       isMasterSwitched =
           isKitchenSwitched || isLivingRoomSwitched || isPorchSwitched || isGarageSwitched;
     });
+
   }
+  Future<void> _handleDoorChange(bool value) async {
+    try {
+      await APIManager.toggleDoor(value);
+      setState(() {
+        isDoorOpen = value;
+      });
+      print('Door is now ${isDoorOpen ? 'Open' : 'Closed'}');
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -93,75 +108,75 @@ class _homeScreenState extends State<homeScreen> {
                     children: [
                       Center(
                         child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height/1.6,
-                          decoration: BoxDecoration(
-                            image:DecorationImage(
-                                image: AssetImage('assets/images/home_plan.png',)
-                                ,fit: BoxFit.fill)
-                          ),
-                          child:Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              SizedBox(height: 35,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  VideoStreamPage(angle :1.5 * math.pi / 2,),
-                                  VideoStreamPage(angle: 4.5 * math.pi / 2,),
-                                ],
-                              ),
-                              Expanded(
-                                flex: 1,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 10,bottom: 30),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Flexible(
-                                          child: lights(
-                                            isLightOn: isKitchenSwitched,
-                                            onLightClicked: _toggleKitchenSwitch,
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height/1.6,
+                            decoration: BoxDecoration(
+                                image:DecorationImage(
+                                    image: AssetImage('assets/images/home_plan.png',)
+                                    ,fit: BoxFit.fill)
+                            ),
+                            child:Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                SizedBox(height: 35,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    VideoStreamPage(angle :1.5 * math.pi / 2,),
+                                    VideoStreamPage(angle: 4.5 * math.pi / 2,),
+                                  ],
+                                ),
+                                Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 10,bottom: 30),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Flexible(
+                                            child: lights(
+                                              isLightOn: isKitchenSwitched,
+                                              onLightClicked: _toggleKitchenSwitch,
+                                            ),
                                           ),
-                                        ),
-                                        Flexible(child: temperature()),
-                                        Flexible(child: temperature()),
-                                        Flexible(
-                                          child: lights(
-                                            isLightOn: isLivingRoomSwitched,
-                                              onLightClicked: _toggleLivingRoomSwitch),
-                                        ),
-                                        Flexible(child: temperature()),
-                                        Flexible(
-                                          child: lights(
-                                            isLightOn: isPorchSwitched,
-                                              onLightClicked: _togglePorchSwitch),
-                                        ),
+                                          Flexible(child: temperature()),
+                                          Flexible(child: temperature()),
+                                          Flexible(
+                                            child: lights(
+                                                isLightOn: isLivingRoomSwitched,
+                                                onLightClicked: _toggleLivingRoomSwitch),
+                                          ),
+                                          Flexible(child: temperature()),
+                                          Flexible(
+                                            child: lights(
+                                                isLightOn: isPorchSwitched,
+                                                onLightClicked: _togglePorchSwitch),
+                                          ),
 
 
-                                      ],
+                                        ],
 
-                                    ),
-                                  )),
-                              Expanded(
-                                flex: 2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 30),
-                                    child: Row(
-                                      children: [
-                                        Flexible(
-                                          child: lights(
-                                            isLightOn: isGarageSwitched,
-                                              onLightClicked:_toggleGarageSwitch ),
-                                        ),
-                                        Flexible(child: temperature()),
-                                      ],
+                                      ),
+                                    )),
+                                Expanded(
+                                    flex: 2,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 30),
+                                      child: Row(
+                                        children: [
+                                          Flexible(
+                                            child: lights(
+                                                isLightOn: isGarageSwitched,
+                                                onLightClicked:_toggleGarageSwitch ),
+                                          ),
+                                          Flexible(child: temperature()),
+                                        ],
 
-                                    ),
-                                  )
-                              ),
-                            ],
-                          )
+                                      ),
+                                    )
+                                ),
+                              ],
+                            )
                         ),
                       ),
                     ],
@@ -224,7 +239,7 @@ class _homeScreenState extends State<homeScreen> {
               ),
               space1(),
               homeContainers(
-                  name: 'Smart Devices',
+                name: 'Smart Devices',
                 height: MediaQuery.of(context).size.height/1.2,
                 icon: Icons.smart_toy_sharp,
                 child: smartDevicesSection(),
@@ -234,7 +249,9 @@ class _homeScreenState extends State<homeScreen> {
                 name: 'Door',
                 height: MediaQuery.of(context).size.height/2.5,
                 icon: Icons.door_back_door,
-                child:door() ,
+                child:Door(
+                  onChange: _handleDoorChange,
+                ) ,
 
               ),
               space1(),

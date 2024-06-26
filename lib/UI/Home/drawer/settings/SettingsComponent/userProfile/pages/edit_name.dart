@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../user/user_data.dart';
 import '../widgets/appbar_widget.dart';
 
 class EditNameFormPage extends StatefulWidget {
@@ -13,6 +14,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
   final _formKey = GlobalKey<FormState>();
   final firstNameController = TextEditingController();
   final secondNameController = TextEditingController();
+  var user = UserData.myUser;
 
   @override
   void dispose() {
@@ -21,6 +23,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
   }
 
   void updateUserValue(String name) {
+    user.name = name;
   }
   bool isAlpha(String value) {
     return RegExp(r'^[a-zA-Z]+$').hasMatch(value);

@@ -2,12 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_home1/api/ApiManager.dart';
 
-class door extends StatefulWidget {
+class Door extends StatefulWidget {
+  final ValueChanged<bool> onChange;
+
+  const Door({
+    Key? key,
+    required this.onChange,
+  }) : super(key: key);
+
   @override
   _DoorState createState() => _DoorState();
 }
 
-class _DoorState extends State<door> {
+class _DoorState extends State<Door> {
   bool isOpen = false;
 
   @override
@@ -23,13 +30,12 @@ class _DoorState extends State<door> {
           SizedBox(height: 15,),
           ElevatedButton(
             onPressed: () async {
-              try {
-                isOpen = !isOpen;
-                await APIManager.toggleLamp(isOpen);
-              } catch (e) {
-                throw Exception('An error occurred. Please try again later.');
-              }
-              setState(() {});
+              bool newState = !isOpen;
+              widget.onChange(newState);
+              setState(() {
+                isOpen = newState;
+              });
+              APIManager.toggleDoor(isOpen);
             },
             child: Text(isOpen ? 'Close' : 'Open'),
           ),
@@ -37,6 +43,4 @@ class _DoorState extends State<door> {
       ),
     );
   }
-
-// Your toggleLamp function here
 }

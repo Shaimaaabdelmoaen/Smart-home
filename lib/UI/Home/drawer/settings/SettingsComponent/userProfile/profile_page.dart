@@ -1,45 +1,45 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:smart_home1/UI/Home/drawer/settings/SettingsComponent/userProfile/pages/edit_email.dart';
-import 'package:smart_home1/UI/Home/drawer/settings/SettingsComponent/userProfile/pages/edit_image.dart';
-import 'package:smart_home1/UI/Home/drawer/settings/SettingsComponent/userProfile/pages/edit_name.dart';
 import 'package:smart_home1/UI/Home/drawer/settings/SettingsComponent/userProfile/widgets/appbar_widget.dart';
-import 'package:smart_home1/UI/Home/drawer/settings/SettingsComponent/userProfile/widgets/display_image_widget.dart';
-class editProfile extends StatefulWidget {
+import 'widgets/display_image_widget.dart';
+import 'user/user_data.dart';
+import 'pages/edit_email.dart';
+import 'pages/edit_image.dart';
+import 'pages/edit_name.dart';
+class ProfilePage extends StatefulWidget {
   static const routeName='userprofile';
   @override
-  _editProfileState createState() => _editProfileState();
+  _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _editProfileState extends State<editProfile> {
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
+    final user = UserData.myUser;
     return Scaffold(
-      appBar: BuildAppBar(appName: 'Edit profile'),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            InkWell(
-                onTap: () {
-                  navigateSecondPage(EditImagePage());
-                },
-                child:Center(
-                  child: CircleAvatar(
-                    radius:100,
-                    backgroundImage: NetworkImage('https://via.placeholder.com/150'),
-                  ),
-                ), /*DisplayImage(
-                  imagePath: AssetImage(''),
-                  onPressed: () {},
-                )*/
-            ),
-             buildUserInfoDisplay('Name', 'Name',EditNameFormPage()),
-             buildUserInfoDisplay( 'Email','Email', EditEmailFormPage()),
-          ],
+      appBar: BuildAppBar(appName: 'Edit Profile',),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              InkWell(
+                  onTap: () {
+                    navigateSecondPage(EditImagePage());
+                  },
+                  child: DisplayImage(
+                    imagePath: user.image,
+                    onPressed: () {},
+                  )),
+              buildUserInfoDisplay(user.name, 'Name', EditNameFormPage()),
+              buildUserInfoDisplay(user.email, 'Email', EditEmailFormPage()),
+            ],
+          ),
         ),
       ),
     );
   }
+
+  // Widget builds the display item with the proper formatting to display the user's info
   Widget buildUserInfoDisplay(String getValue, String title, Widget editPage) =>
       Padding(
           padding: EdgeInsets.only(bottom: 10),
@@ -69,9 +69,7 @@ class _editProfileState extends State<editProfile> {
                             bottom: BorderSide(
                       color: Colors.grey,
                       width: 1,
-                    )
-                        )
-                    ),
+                    ))),
                     child: Row(
                         children: [
                       Expanded(
@@ -84,17 +82,15 @@ class _editProfileState extends State<editProfile> {
                         color: Colors.grey,
                         size: 40.0,
                       )
-                    ]
-                    )
-                ),
+                    ])),
               )
             ],
-          )
-      );
+          ));
 
   FutureOr onGoBack(dynamic value) {
     setState(() {});
   }
+
   void navigateSecondPage(Widget editForm) {
     Route route = MaterialPageRoute(builder: (context) => editForm);
     Navigator.push(context, route).then(onGoBack);

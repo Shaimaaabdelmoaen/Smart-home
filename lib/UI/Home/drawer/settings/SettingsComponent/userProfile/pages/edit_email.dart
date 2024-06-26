@@ -1,5 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+
+import '../user/user_data.dart';
 import '../validation/validationUtilts.dart';
 import '../widgets/appbar_widget.dart';
 class EditEmailFormPage extends StatefulWidget {
@@ -14,11 +16,18 @@ class EditEmailFormPage extends StatefulWidget {
 class EditEmailFormPageState extends State<EditEmailFormPage> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
+  var user = UserData.myUser;
+
   @override
   void dispose() {
     emailController.dispose();
     super.dispose();
   }
+
+  void updateUserValue(String email) {
+    user.email = email;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +80,10 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                                         EmailValidator.validate(
                                             emailController.text)
                                     )
-                                      {}
+                                    {
+                                      updateUserValue(emailController.text);
+                                      Navigator.pop(context);
+                                    }
                                   },
                                   child: const Text(
                                     'Update',

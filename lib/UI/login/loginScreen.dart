@@ -15,12 +15,16 @@ import 'package:http/http.dart'as http;
 import '../../api/ApiManager.dart';
 import '../../validation/validationUtilts.dart';
 class loginScreen extends StatelessWidget{
+  String userName = '';
+  String userEmail = '';
+
   static const routeName='login';
   TextEditingController email=TextEditingController(text: 'sa3073@fayoum.edu.eg');
   TextEditingController password=TextEditingController(text: 'pit%TLB7');
   final GlobalKey<FormState> FormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
     final screenHeight = mediaQuery.size.height;
@@ -166,4 +170,34 @@ class loginScreen extends StatelessWidget{
     return prefs.getString('email');
   }
 
+
   }
+class LoginResponse {
+  final User user;
+  final String token;
+
+  LoginResponse({required this.user, required this.token});
+
+  factory LoginResponse.fromJson(Map<String, dynamic> json) {
+    return LoginResponse(
+      user: User.fromJson(json['user']),
+      token: json['token'],
+    );
+  }
+}
+
+class User {
+  final int id;
+  final String name;
+  final String email;
+
+  User({required this.id, required this.name, required this.email});
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+    );
+  }
+}

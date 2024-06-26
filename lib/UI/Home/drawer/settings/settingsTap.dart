@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_home1/UI/Home/drawer/settings/SettingsComponent/editProfile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_home1/UI/Home/drawer/settings/SettingsContainer.dart';
 import 'package:smart_home1/UI/Home/drawer/settings/themeBottomSheet.dart';
 import 'package:smart_home1/UI/register/registerScreen.dart';
 
 import '../../../../provider/settingsProvider.dart';
+import 'SettingsComponent/Delete user/delete.dart';
 import 'SettingsComponent/chandePassword.dart';
+import 'SettingsComponent/userProfile/profile_page.dart';
 class settingsTap extends StatefulWidget{
   static const routeName='settingsTap';
   @override
@@ -15,6 +17,20 @@ class settingsTap extends StatefulWidget{
 }
 
 class _settingsTapState extends State<settingsTap> {
+  String? role;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserRole();
+  }
+
+  Future<void> _loadUserRole() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      role = prefs.getString('role');
+    });
+  }
   @override
   Widget build(BuildContext context) {
     var SettingsProvidr =Provider.of<settingsProvider>(context);
@@ -44,7 +60,7 @@ class _settingsTapState extends State<settingsTap> {
               ),
               InkWell(
                 onTap: (){
-                  Navigator.pushNamed(context, editProfile.routeName);
+                  Navigator.pushNamed(context, ProfilePage.routeName);
                 },
                 child: SettingeContainer(
                     name: 'Edit Profile',
@@ -57,16 +73,31 @@ class _settingsTapState extends State<settingsTap> {
                 },
                   child: SettingeContainer(name: 'Change Password', icon1: Icons.key)),
               Divider(),
-              InkWell(
-                onTap: (){
-                  Navigator.pushNamed(context, registerScreen.routeName);
-                },
-                child: SettingeContainer(
+              if (role == 'Admin') ...[
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, registerScreen.routeName);
+                  },
+                  child: SettingeContainer(
                     name: 'Add User',
-                    icon1: Icons.add),
-              ),
-              Divider(),
-              SettingeContainer(name: 'Delete User', icon1: Icons.delete),
+                    icon1: Icons.add,
+                  ),
+                ),
+                Divider(),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, UserList.routeName);
+                  },
+                  child: InkWell(
+                    child: SettingeContainer(
+                      name: 'Delete User',
+                      icon1: Icons.delete,
+
+                    ),
+                  ),
+                ),
+                Divider(),
+              ],
               Container(
                 decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor.withOpacity(.5),

@@ -52,7 +52,7 @@ class _EditImagePageState extends State<EditImagePage> {
                     child: Center(
                       child: CircleAvatar(
                         radius: 200,
-                        backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                        backgroundImage: AssetImage('assets/images/Robots-Square.png'),
                       ),
                     ),
                   )

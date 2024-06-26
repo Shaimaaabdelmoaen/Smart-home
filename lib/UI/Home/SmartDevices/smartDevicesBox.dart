@@ -1,20 +1,30 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../api/ApiManager.dart';
+
 class SmartDeviceBox extends StatelessWidget {
   final String smartDeviceName;
   final String iconPath;
   final bool powerOn;
-  void Function(bool)? onChanged;
+  final ValueChanged<bool> onChange;
 
   SmartDeviceBox({
     super.key,
     required this.smartDeviceName,
     required this.iconPath,
     required this.powerOn,
-    required this.onChanged,
+    required this.onChange,
   });
+
+  Future<void> _toggleDevice(String device, bool newValue) async {
+    try {
+      await APIManager.toggleDevice(device, newValue);
+      onChange(newValue);
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +44,6 @@ class SmartDeviceBox extends StatelessWidget {
               color: powerOn ? Colors.white : Theme.of(context).primaryColor,
             ),
           ),
-
           // smart device name + switch
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,11 +65,13 @@ class SmartDeviceBox extends StatelessWidget {
                 angle: pi / 2,
                 child: CupertinoSwitch(
                   value: powerOn,
-                  onChanged: onChanged,
+                  onChanged: (value) {
+                    _toggleDevice(smartDeviceName.toLowerCase().replaceAll(' ', '_'), value);
+                  },
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );

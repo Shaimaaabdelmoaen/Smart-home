@@ -4,10 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:smart_home1/UI/Home/SmartDevices/smartDivicesSection.dart';
 import 'package:smart_home1/UI/Home/componentsHomePlan/temperature.dart';
 import 'package:smart_home1/UI/Home/drawer/log%20out/logOut.dart';
-import 'package:smart_home1/UI/Home/drawer/settings/SettingsComponent/editProfile.dart';
 import 'package:smart_home1/UI/Home/drawer/settings/settingsTap.dart';
 import 'package:smart_home1/UI/Home/homeScreen.dart';
-import 'package:smart_home1/UI/Home/temprature/tempratureSection.dart';
 import 'package:smart_home1/UI/components/fingerPrint/FingerPrint.dart';
 import 'package:smart_home1/UI/forgetPassword/EnterCodePage.dart';
 import 'package:smart_home1/UI/forgetPassword/checkEmail.dart';
@@ -18,7 +16,11 @@ import 'package:smart_home1/provider/settingsProvider.dart';
 
 import 'UI/Home/camera/VideoStreamScreen.dart';
 import 'UI/Home/camera/another code.dart';
+import 'UI/Home/drawer/settings/SettingsComponent/Delete user/delete.dart';
 import 'UI/Home/drawer/settings/SettingsComponent/chandePassword.dart';
+import 'UI/Home/drawer/settings/SettingsComponent/userProfile/pages/edit_name.dart';
+import 'UI/Home/drawer/settings/SettingsComponent/userProfile/profile_page.dart';
+import 'UI/Home/drawer/settings/generate_otp.dart';
 import 'UI/forgetPassword/resetPassword.dart';
 
 //final GetIt getIt = GetIt.instance;
@@ -58,16 +60,18 @@ class MyApp extends StatelessWidget {
         //EnterCodePage.routeName: (context) => EnterCodePage(),
         OtpVerificationScreen.routeName:(_)=>OtpVerificationScreen(),
         //ChangePasswordPage.routeName: (context) => ChangePasswordPage(),
-        TemperatureChart.routeName:(context)=>TemperatureChart(),
         PasswordResetPage.routeName:(_)=>PasswordResetPage(),
-        editProfile.routeName:(context)=>editProfile(),
         ChangePasswordPage.routeName:(_)=>ChangePasswordPage(),
         smartDevicesSection.routeName:(_)=>smartDevicesSection(),
         IPWebcamScreen.routeName:(_)=>IPWebcamScreen(),
+        UserList.routeName:(_)=>UserList(),
+        ProfilePage.routeName:(_)=>ProfilePage(),
+        OtpPage.routeName:(_)=>OtpPage(),
+
         //checkEmail.routename:(_)=>checkEmail(),
         //SetNewPasswordPage.routename:(_)=>SetNewPasswordPage()
       },
-      initialRoute: IPWebcamScreen.routeName,
+      initialRoute: homeScreen.routeName,
     );
   }
 }
