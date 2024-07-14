@@ -19,8 +19,8 @@ class loginScreen extends StatelessWidget{
   String userEmail = '';
 
   static const routeName='login';
-  TextEditingController email=TextEditingController();
-  TextEditingController password=TextEditingController();
+  TextEditingController email=TextEditingController(text: 'sa3073@fayoum.edu.eg');
+  TextEditingController password=TextEditingController(text: '12345678');
   final GlobalKey<FormState> FormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
